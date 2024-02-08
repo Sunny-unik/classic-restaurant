@@ -30,8 +30,23 @@ $(function () {
   // Show loading icon inside element identified by 'selector'.
   var showLoading = function (selector) {
     var html = "<div class='text-center'>";
-    html += "<img src='images/ajax-loader.gif'></div>";
+    html +=
+      "<img src='images/ajax-loader.gif'><p>Fetching Data From Server</p></div>";
     insertHtml(selector, html);
+    setTimeout(() => {
+      const loadingGif = document
+        .querySelector(selector)
+        .querySelector("img[src='images/ajax-loader.gif']");
+      if (loadingGif) {
+        const loadingClarificationPara = document.createElement("p");
+        loadingClarificationPara.innerHTML = `This might took a while on first load because it's 
+          <a target='_blank' href='https://github.com/Sunny-unik/docker-node-server'>backend</a>
+           is running inside an ubuntu image which is hosted on 
+          <a target='_blank' href='https://community.render.com/t/cold-boot-start-of-the-server-for-first-request/15911'>render's</a>
+           free tier.`;
+        loadingGif.nextElementSibling.after(loadingClarificationPara);
+      }
+    }, 3000);
   };
 
   // Return substitute of '{{propName}}'
